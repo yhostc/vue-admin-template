@@ -1,0 +1,26 @@
+{
+  "name": "vue-admin-template",
+  "version": "1.0.0",
+  "description": "an spa admin template by vue.js and element-ui.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yhostc/vue-admin-template.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "vue.js",
+    "vue-route",
+    "element-ui"
+  ],
+  "author": "yhostc@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yhostc/vue-admin-template/issues"
+  },
+  "homepage": "https://github.com/yhostc/vue-admin-template#readme",
+}
