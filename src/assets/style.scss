@@ -1,0 +1,14 @@
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    margin-top: 60px;
+    color: #8492a6;
+}
+
+$font: #006600;
+
+h1 {
+    color: $font;
+}
