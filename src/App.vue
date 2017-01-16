@@ -2,6 +2,13 @@
   <div id="app">
     <p><img src="./assets/logo.png"></p>
     <h1>{{ msg }}</h1>
+    <p>
+      <router-link to="/foo">Go to Foo</router-link>
+      <router-link to="/bar">Go to Bar</router-link>
+    </p>
+    <p>
+      <router-view></router-view>
+    </p>
   </div>
 </template>
 
