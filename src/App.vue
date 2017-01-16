@@ -14,6 +14,8 @@ export default {
     }
   }
 }
+
+console.log([1,2,3,4,5].map(x=>x+1));
 </script>
 
 <style lang="scss" src="./assets/style.scss"></style>
