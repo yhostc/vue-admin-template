@@ -20,6 +20,18 @@ module.exports = {
 			}
 		}, {
 			test: /\.js$/,
+			exclude: /node_modules/,
+			enforce: 'pre',
+			use: [{
+				loader: 'eslint-loader',
+				options: {
+					rules: {
+						semi: 0
+					}
+				}
+			}],
+		}, {
+			test: /\.js$/,
 			loader: 'babel-loader',
 			exclude: /node_modules/
 		}, {
