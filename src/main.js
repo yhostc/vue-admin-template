@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import {
+	Icon
+} from 'element-ui';
 import App from './App.vue'
 
 
 Vue.use(VueRouter);
+Vue.use(Icon);
 
 const routes = [{
 	path: '/foo',
