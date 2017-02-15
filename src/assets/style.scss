@@ -1,14 +1,16 @@
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #5D5F63;
+    background: #293949;
+    padding: 0;
+    margin: 0;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    margin-top: 60px;
-    color: #8492a6;
 }
 
-$font: #006600;
-
-h1 {
-    color: $font;
+a:link {
+    text-decoration: none;
+    outline: 0;
 }

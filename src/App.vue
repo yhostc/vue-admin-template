@@ -1,35 +1,28 @@
 <template>
+  <!-- 顶层页面视图 -->
   <div id="app">
-    <p><img src="./assets/logo.png"></p>
-    <h1>{{ msg }}</h1>
-    <p>
-      <router-link to="/foo">
-        <i class="el-icon-arrow-left"></i>
-        Go to Foo
-      </router-link>
-      &nbsp;
-      <router-link to="/bar">
-        Go to Bar
-        <i class="el-icon-arrow-right"></i>
-      </router-link>
-    </p>
-    <p>
-      <router-view></router-view>
-    </p>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  components: {
+    
+  },
+  created: function(){
+    // 检查SESSION会话
+    // this.$router.replace('/login');
   }
 }
-
-console.log([1,2,3,4,5].map(x=>x+1));
 </script>
 
-<style lang="scss" src="./assets/style.scss"></style>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+</style>
