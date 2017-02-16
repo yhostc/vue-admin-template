@@ -22,11 +22,6 @@ const routes = [{
 	name: '用户管理',
 	path: '/user',
 	component: User,
-	children: [{
-		name: 'Login',
-		path: '/user/login',
-		component: Login
-	}],
 	icon: 'fa fa-table'
 }, {
 	name: '系统设置',
@@ -44,6 +39,11 @@ const routes = [{
 		component: Bar
 	}],
 	icon: 'fa fa-cogs'
+}, {
+	name: '用户登录',
+	path: '/login',
+	component: Login,
+	hidden: true
 }];
 
 

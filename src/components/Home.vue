@@ -13,27 +13,16 @@
 			<!-- 左侧导航区域开始 -->
 			<aside class="sidebar">
                 <el-col :span="24">
-                    <el-menu default-active="2" class="el-menu-vertical-demo" theme="dark" @open="handleOpen" @close="handleClose">
+                    <el-menu default-active="2" class="el-menu-vertical-demo" theme="dark" :router="true" @open="handleOpen" @close="handleClose">
                         
                         <template v-for="(item,idx) in $router.options.routes" v-if="!item.hidden">
                             <el-submenu :index="idx+''" v-if="item.children">
                                 <template slot="title"><i :class="item.icon"></i> {{item.name}}</template>
-                                <el-menu-item v-for="child in item.children" index="children.path" >{{child.name}}</el-menu-item>
+                                <el-menu-item v-for="child in item.children" :index="child.path">{{child.name}}</el-menu-item>
                             </el-submenu>
 
                             <el-menu-item :index="item.path" v-if="!item.children"><i :class="item.icon"></i> {{item.name}}</el-menu-item>
                         </template>
-<!-- 
-
-                        <el-submenu index="1">
-                            <template slot="title"><i class="el-icon-message"></i>导航一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-submenu>
-
-                        <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
-                        <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item> -->
                     </el-menu>
                 </el-col>
     		</aside>
