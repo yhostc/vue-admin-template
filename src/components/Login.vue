@@ -43,12 +43,13 @@
       handleSubmit(ev) {
         var that = this;
         this.$refs.myform.validate((valid) => {
-          if (valid) {
-            that.$router.replace('/');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
+        	// TODO: 异步提交表单验证
+			if (valid) {
+				that.$router.replace('/');
+			} else {
+				console.log('error submit!!');
+				return false;
+			}
         });
       }
     }
