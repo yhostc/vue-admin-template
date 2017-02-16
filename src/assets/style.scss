@@ -1,16 +1,38 @@
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
     color: #5D5F63;
-    background: #293949;
     padding: 0;
     margin: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-rendering: optimizeLegibility;
 }
 
-a:link {
+a:link, a:visited {
     text-decoration: none;
     outline: 0;
+    color: #1abc9c;
+}
+
+a:active, a:hover {
+    outline: 0;
+    text-decoration: none;
+    color: #16a086;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro',Arial,sans-serif;
+}
+
+p {
+    font-size: 14px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 100%;
 }

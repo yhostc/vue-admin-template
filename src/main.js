@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
 import App from './App.vue'
 import Home from './components/Home.vue'
+import User from './components/User.vue'
 import Login from './components/Login.vue'
 import Foo from './components/Foo.vue'
 import Bar from './components/Bar.vue'
@@ -13,9 +14,26 @@ Vue.use(ElementUI);
 
 
 const routes = [{
-	name: '首页',
+	name: 'Dashboard',
 	path: '/',
 	component: Home,
+	icon: 'fa fa-dashboard'
+}, {
+	name: '用户管理',
+	path: '/user',
+	component: User,
+	children: [{
+		name: 'Login',
+		path: '/user/login',
+		component: Login
+	}],
+	icon: 'fa fa-table'
+}, {
+	name: '系统设置',
+	path: '/setting',
+	component: function (resolve) {
+		require(['./components/Setting.vue'], resolve);
+	},
 	children: [{
 		name: 'Foo',
 		path: '/foo',
@@ -24,27 +42,8 @@ const routes = [{
 		name: 'Bar',
 		path: '/bar',
 		component: Bar
-	}]
-}, {
-	name: '登录',
-	path: '/login',
-	component: Login
-}, {
-	name: '用户管理',
-	path: '/user',
-	component: function (resolve) {
-		require(['./components/User.vue'], resolve);
-	}
-}, {
-	path: '/foo',
-	component: function (resolve) {
-		require(['./components/Foo.vue'], resolve);
-	}
-}, {
-	path: '/bar',
-	component: function (resolve) {
-		require(['./components/Bar.vue'], resolve);
-	}
+	}],
+	icon: 'fa fa-cogs'
 }];
 
 
@@ -54,6 +53,10 @@ const router = new VueRouter({
 
 new Vue({
 	el: "#app",
+	template: '<App/>',
 	router: router,
-	render: h => h(App)
-})
+	components: {
+		App
+	}
+	// render: h => h(App)
+}).$mount('#app');
