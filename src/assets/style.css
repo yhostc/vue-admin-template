@@ -2,10 +2,13 @@ body {
     color: #5D5F63;
     padding: 0;
     margin: 0;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    text-rendering: optimizeLegibility;
+
+    /*    text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        text-rendering: optimizeLegibility;*/
+    background-color: #F5F5F5;
+    font-size: 12px;
 }
 
 a:link, a:visited {
@@ -31,8 +34,4 @@ p {
 hr {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-img {
-    max-width: 100%;
 }

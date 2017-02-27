@@ -1,49 +1,75 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ElementUI from 'element-ui'
+import {
+	Basic
+} from 'element-ui'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 import App from './App.vue'
+
+
 import Home from './components/Home.vue'
 import User from './components/User.vue'
-import Login from './components/Login.vue'
-import Foo from './components/Foo.vue'
-import Bar from './components/Bar.vue'
+import Auction from './components/Auction.vue'
+import AuctionMy from './components/AuctionMy.vue'
+import Auction05 from './components/Auction05.vue'
+import Auction10 from './components/Auction10.vue'
+import AuctionCreate from './components/AuctionCreate.vue'
+import AuctionRule from './components/AuctionRule.vue'
+import AuctionSuccess from './components/AuctionSuccess.vue'
+import AuctionList from './components/AuctionList.vue'
+import AuctionDetail from './components/AuctionDetail.vue'
 
 
-Vue.use(VueRouter);
-Vue.use(ElementUI);
+Vue.use(VueRouter)
+Vue.use(MintUI)
 
 
 const routes = [{
 	name: 'Dashboard',
 	path: '/',
-	component: Home,
-	icon: 'fa fa-dashboard'
+	component: Home
 }, {
-	name: '用户管理',
+	name: '我',
 	path: '/user',
-	component: User,
-	icon: 'fa fa-table'
+	component: User
 }, {
-	name: '系统设置',
-	path: '/setting',
-	component: function (resolve) {
-		require(['./components/Setting.vue'], resolve);
-	},
+	name: '拍卖',
+	path: '/auction',
+	component: Auction,
 	children: [{
-		name: 'Foo',
-		path: '/foo',
-		component: Foo
+		name: '我的参拍',
+		path: 'my',
+		component: AuctionMy
 	}, {
-		name: 'Bar',
-		path: '/bar',
-		component: Bar
-	}],
-	icon: 'fa fa-cogs'
-}, {
-	name: '用户登录',
-	path: '/login',
-	component: Login,
-	hidden: true
+		name: '我的发拍',
+		path: 'publish',
+		component: Auction05
+	}, {
+		name: '开始认证',
+		path: 'sign',
+		component: Auction10
+	}, {
+		name: '发布拍卖',
+		path: 'create',
+		component: AuctionCreate
+	}, {
+		name: '价格规则',
+		path: 'rule',
+		component: AuctionRule
+	}, {
+		name: '发布成功',
+		path: 'success',
+		component: AuctionSuccess
+	}, {
+		name: '我的拍卖',
+		path: 'list',
+		component: AuctionList
+	}, {
+		name: '拍卖详情',
+		path: 'detail',
+		component: AuctionDetail
+	}]
 }];
 
 
