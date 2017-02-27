@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import {
 	Basic
 } from 'element-ui'
@@ -21,9 +22,10 @@ import AuctionList from './components/AuctionList.vue'
 import AuctionDetail from './components/AuctionDetail.vue'
 
 
+
 Vue.use(VueRouter)
 Vue.use(MintUI)
-
+Vue.use(VueResource)
 
 const routes = [{
 	name: 'Dashboard',
