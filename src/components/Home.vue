@@ -1,23 +1,33 @@
 <template>
-	<p>
-        {{msg}}
-    </p>
+	<div>
+        <p>
+            {{msg}}
+        </p>
+        <p>SID:{{sid}}, USER: </p>
+
+    </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 
-
-  export default {
-	data() {
+export default {
+    data() {
         return {
-			msg: 'this is home page'
+    		msg: 'this is home page'
     	}
-	},
-	methods: {
+    },
+    computed: {
+        ...mapGetters({
+            sid: 'sid',
+            user: 'user'
+        })
+    },
+    methods: {
         
-	},
-    ready: function(){
-        console.log('component is ready');
+    },
+    created: function(){
+        console.log('-->sid:', this.sid, sessionStorage.getItem('sid'));
     }
 }
 </script>

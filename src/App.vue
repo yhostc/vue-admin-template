@@ -11,15 +11,18 @@ export default {
   components: {
     
   },
-  created: function(){
-    // 检查SESSION会话
-    // this.$router.replace('/login');
+  mounted: function(){
+    
+  },
+  methods: {
+    
   }
 }
 </script>
 
 
 <style lang="css" src="./assets/style.css" />
+
 
 <style>
 #app {
