@@ -30,7 +30,7 @@ export default {
     // 1、当前状态验证
     if(this.getSid){
       console.log("->通过SID登录");
-      this.$router.push("/");
+      this.$router.push("/auction/list");
       return;
     }
 
@@ -38,7 +38,7 @@ export default {
     if(this.getCacheSid){
       console.log("->通过CACHE SID登录");
       this.$store.dispatch('UserLogin', {sid: this.getCacheSid});
-      this.$router.push("/");
+      this.$router.push("/auction/list");
       return;
     }
 
@@ -47,7 +47,7 @@ export default {
     if(sid){
       console.log("->通过URL SID登录");
       this.$store.dispatch('UserLogin', {sid});
-      this.$router.push("/");
+      this.$router.push("/auction/list");
       return;
     }
 

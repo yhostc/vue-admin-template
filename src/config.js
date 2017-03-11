@@ -1,3 +1,3 @@
 export default {
-	"service": "http://yhostc.local/auction-service/www/"
+	"service": "http://yhostc.local/auction-service/www"
 }

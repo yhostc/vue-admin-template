@@ -2,75 +2,74 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
-import Home from './components/Home.vue'
-import User from './components/User.vue'
-import Login from './components/Login.vue'
-import Auction from './components/Auction.vue'
-import AuctionMy from './components/AuctionMy.vue'
-import Auction05 from './components/Auction05.vue'
-import Auction10 from './components/Auction10.vue'
-import AuctionCreate from './components/AuctionCreate.vue'
-import AuctionRule from './components/AuctionRule.vue'
-import AuctionSuccess from './components/AuctionSuccess.vue'
-import AuctionList from './components/AuctionList.vue'
-import AuctionDetail from './components/AuctionDetail.vue'
-
-
 Vue.use(VueRouter)
 
 
 const routes = [{
-	name: 'Dashboard',
+	name: 'Home',
 	path: '/',
-	component: Home,
+	component: resolve => require(['./page/AuctionList.vue'], resolve),
 	meta: {
 		requiresAuth: true
 	}
 }, {
 	name: '我',
 	path: '/user',
-	component: User
+	component: resolve => require(['./page/User.vue'], resolve),
+	meta: {
+		requiresAuth: true
+	}
 }, {
 	name: '登录',
 	path: '/login',
-	component: Login
+	component: resolve => require(['./page/Login.vue'], resolve)
+}, {
+	name: '我的发拍',
+	path: '/publish',
+	component: resolve => require(['./page/Publish.vue'], resolve),
+	meta: {
+		requiresAuth: true
+	}
 }, {
 	name: '拍卖',
 	path: '/auction',
-	component: Auction,
+	component: resolve => require(['./page/Auction.vue'], resolve),
 	children: [{
 		name: '我的参拍',
 		path: 'my',
-		component: AuctionMy
+		component: resolve => require(['./page/AuctionMy.vue'], resolve)
 	}, {
-		name: '我的发拍',
-		path: 'publish',
-		component: Auction05
+		name: '发拍协议',
+		path: 'protocol',
+		component: resolve => require(['./page/AuctionProtocol.vue'], resolve)
 	}, {
 		name: '开始认证',
 		path: 'sign',
-		component: Auction10
+		component: resolve => require(['./page/AuctionSign.vue'], resolve)
 	}, {
 		name: '发布拍卖',
 		path: 'create',
-		component: AuctionCreate
+		component: resolve => require(['./page/AuctionCreate.vue'], resolve)
 	}, {
 		name: '价格规则',
 		path: 'rule',
-		component: AuctionRule
+		component: resolve => require(['./page/AuctionRule.vue'], resolve)
 	}, {
 		name: '发布成功',
 		path: 'success',
-		component: AuctionSuccess
+		component: resolve => require(['./page/AuctionSuccess.vue'], resolve)
 	}, {
 		name: '我的拍卖',
 		path: 'list',
-		component: AuctionList
+		component: resolve => require(['./page/AuctionList.vue'], resolve)
 	}, {
 		name: '拍卖详情',
 		path: 'detail',
-		component: AuctionDetail
-	}]
+		component: resolve => require(['./page/AuctionDetail.vue'], resolve)
+	}],
+	meta: {
+		requiresAuth: true
+	}
 }];
 
 const router = new VueRouter({

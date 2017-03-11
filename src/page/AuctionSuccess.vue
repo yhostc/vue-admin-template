@@ -3,7 +3,7 @@
 		<div class="info">
       <p class="state">发布成功！</p>
       <p>
-        <img src="../assets/bg1.png" />
+        <img style="width:100%" src="../assets/bg1.png" />
       </p>
       <p>分享拍卖信息，可以让更多人参与拍卖</p>
     </div>
@@ -11,7 +11,7 @@
     <div class="controller">
       <mt-button type="primary" size="large">立即分享</mt-button>
       <br/>
-      <mt-button type="default" size="large">完 成</mt-button>
+      <mt-button type="default" size="large" @click="onSubmit">完 成</mt-button>
     </div>
   </div>
 </template>
@@ -24,8 +24,10 @@ export default {
       
     }
   },
-  methods: function(){
-
+  methods: {
+    onSubmit: function(){
+      this.$router.push("/auction/list");
+    }
   }
 }
 </script>
@@ -49,8 +51,8 @@ export default {
 }
 
 
-.controller{
-  margin-top: 200px;
+.message .controller{
+  margin-top: 160px;
   padding: 10px;
   font-size: 14px;
 }

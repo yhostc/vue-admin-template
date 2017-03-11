@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<!-- 我的拍卖 -->
+	<div class="auction">
+    <!-- 我的拍卖 -->
 		<router-view></router-view>
   </div>
 </template>
@@ -15,6 +15,3 @@ export default {
   }
 }
 </script>
-
-
-
