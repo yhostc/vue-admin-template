@@ -1,13 +1,23 @@
 <template>
 	<div>
 		<div class="auction-header text-right">
-      <div class="auction-state">
+      <!-- 正在拍卖 -->
+      <div class="auction-state" v-if="detail.status=='1' && detail.bidding">
         <div class="chuizi"><img width="20" src="../assets/icon7.png"></div>
-        <div class="price">当前价<span>&yen;8800</span></div>
+        <div class="price">当前价<span>&yen;{{detail.bidding.price}}</span></div>
         <div class="split"></div>
         <div class="time"><img width="20" src="../assets/icon-time.png"></div>
-        <div class="times">当前落槌<span>2/3次</span></div>
-        <div class="remain">倒计时<span>15秒</span></div>
+        <div class="times">当前落槌<span>{{detail.bidding.times}}/{{detail.sale_times}}次</span></div>
+        <div class="remain">倒计时<span>{{detail.bidding.remain}}秒</span></div>
+        <div class="clear"></div>
+      </div>
+
+      <!-- 已结束 -->
+      <div class="auction-state auction-state-complete" v-if="detail.status=='2' && detail.bidding">
+        <div class="chuizi"><img width="20" src="../assets/icon7.png"></div>
+        <div class="price">已成交</div>
+        <div class="split"></div>
+        <div class="remain">成交价<span>&yen;{{detail.bidding.price}}</span></div>
         <div class="clear"></div>
       </div>
     </div>
@@ -127,7 +137,7 @@ export default {
         if(res.body.status){
           that.detail = res.body.data.detail;
           this.bilingFansList = res.body.data.bilingFansList;
-          that.bidding.visible = !res.body.data.is_own;
+          that.bidding.visible = !res.body.data.is_own && res.body.detail.status==1;
         }
       }, res => {
         that.$toast(res.body.info);
