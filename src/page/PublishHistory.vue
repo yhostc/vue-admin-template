@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <div class="auction-header text-center">
-      <p>共参加了3个拍卖，2个正在进行</p>
+	<div>
+    <div class="auction-header text-right">
+      <span>已有{{count}}个拍卖</span>
+      <router-link :to="{ path:'/auction/create'}">
+        <mt-button type="primary" size="small">
+          发布新拍卖
+        </mt-button>
+      </router-link>
     </div>
     <div class="auction-shadow"></div>
     <div class="auction-body">
@@ -9,14 +14,7 @@
       <p class="title">正在拍卖</p>
       <div class="auction-rows">
         <!-- 数据循环体开始 -->
-        <mt-cell-swipe  v-for="(item, index) in loading" :right="[
-          {
-            content: '停拍',
-            style: { background: 'red', color: '#fff' },
-            handler: () => this.$messagebox('delete')
-          }
-        ]">
-          
+        <mt-cell-swipe v-for="item in loading" title="text" :value="22222" :right="rightButtons">
             <div class="auction-image"><img width="95" :src="item.image"></div>
             <div class="auction-content">
               <div class="title">
@@ -24,26 +22,14 @@
               </div>
               <div class="auction-state">
                 <div class="chuizi"><img width="20" src="../assets/icon7.png"></div>
-                <div class="price">当前价<span>&yen;{{item.price_start}}</span></div>
+                <div class="price">当前价<span>&yen;{{item.price}}</span></div>
                 <div class="split"></div>
                 <div class="time"><img width="20" src="../assets/icon-time.png"></div>
-                <div class="times">当前落槌<span>2/3次</span></div>
-                <div class="remain">倒计时<span>15秒</span></div>
+                <div class="times">当前落槌<span>{{item.times}}/{{item.sale_times}}次</span></div>
+                <div class="remain">倒计时<span>{{item.remain}}秒</span></div>
                 <div class="clear"></div>
               </div>
-              <router-link :to="{ path:'/auction/detail?got_state='+item.got.is_has+'&id='+item.id}">
-                <div class="auction-got-success" v-if="item.got.is_has">
-                  我的出价最高&yen;{{Number(item.got.price)+Number(item.price_start)}}&nbsp;>&nbsp;
-                </div>
-          
-                <div class="auction-got-fail" v-if="!item.got.is_has">
-                  我的出价被超越&nbsp;>&nbsp;
-                </div>
-              </router-link>
             </div>
-            
-
-            
             <div class="clear"></div>
         </mt-cell-swipe>
         <!-- 数据循环体结束 -->
@@ -56,7 +42,7 @@
           {
             content: '删除记录',
             style: { background: 'red', color: '#fff' },
-            handler: () => this.$messagebox('delete')
+            handler: ()=>{}
           }
         ]">
           <div class="auction-image"><img width="95" height="115" src="../assets/bg2.png"></div>
@@ -68,7 +54,7 @@
               <div class="chuizi"><img width="20" src="../assets/icon7.png"></div>
               <div class="price">已成交</div>
               <div class="split"></div>
-              <div class="remain">成交价<span>&yen;2800</span></div>
+              <div class="remain">成交价<span>&yen;{{item.price}}</span></div>
               <div class="clear"></div>
             </div>
           </div>
@@ -88,20 +74,51 @@ export default {
   data () {
     return {
       loading:[],
-      has: []
+      has: [],
+      count: 0
     }
   },
   created: function(){
+
+    /*  定义右键菜单 */
+    this.rightButtons = [
+      {
+        content: 'Delete',
+        style: { background: 'red', color: '#fff' },
+        handler: ()=>{
+          console.log(this);
+          console.log(this.removeBidding(11))
+        }
+      }
+    ];
+
+
     this.getAuctionList();
   },
   methods: {
     getAuctionList: function(){
       var that = this;
-      var url = config.service + '/auction/my';
+      var url = config.service + '/product/myPublishList';
       this.$http.post(url, {}).then(res => {
         if(res.body.status){
           that.loading = res.body.data.loading;
           that.has = res.body.data.has;
+          that.count = res.body.data.count
+        }
+      }, res => {
+        that.$toast(res.body.info);
+      });
+    },
+    removeBidding: function(id){
+      console.log('->removeBidding:',arguments);
+
+      return;
+
+      var that = this;
+      var url = config.service + '/bidding/remove';
+      this.$http.post(url, {id:id}).then(res => {
+        if(res.body.status){
+          
         }
       }, res => {
         that.$toast(res.body.info);
@@ -110,8 +127,3 @@ export default {
   }
 }
 </script>
-
-
-<style lang="css">
-
-</style>

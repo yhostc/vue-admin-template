@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [{
 	name: 'Home',
 	path: '/',
-	component: resolve => require(['./page/AuctionList.vue'], resolve),
+	component: resolve => require(['./page/JoinMy.vue'], resolve),
 	meta: {
 		requiresAuth: true
 	}
@@ -24,49 +24,58 @@ const routes = [{
 	path: '/login',
 	component: resolve => require(['./page/Login.vue'], resolve)
 }, {
-	name: '我的发拍',
+	name: '发拍',
 	path: '/publish',
 	component: resolve => require(['./page/Publish.vue'], resolve),
+	children: [{
+		name: '发拍引导',
+		path: 'guid',
+		component: resolve => require(['./page/PublishGuid.vue'], resolve)
+	}, {
+		name: '开始认证',
+		path: 'sign',
+		component: resolve => require(['./page/PublishSign.vue'], resolve)
+	}, {
+		name: '发拍协议',
+		path: 'protocol',
+		component: resolve => require(['./page/PublishProtocol.vue'], resolve)
+	}, {
+		name: '发布拍卖',
+		path: 'create',
+		// 发布创建，进行判断是否进入引导页面
+		component: resolve => require(['./page/PublishCreate.vue'], resolve)
+	}, {
+		name: '价格规则',
+		path: 'rule',
+		component: resolve => require(['./page/PublishRule.vue'], resolve)
+	}, {
+		name: '发布成功',
+		path: 'success',
+		component: resolve => require(['./page/PublishSuccess.vue'], resolve)
+	}, {
+		name: '发拍历史',
+		path: 'history',
+		component: resolve => require(['./page/PublishHistory.vue'], resolve)
+	}],
+	meta: {
+		requiresAuth: true
+	},
+}, {
+	name: '参拍',
+	path: '/join',
+	component: resolve => require(['./page/Join.vue'], resolve),
+	children: [{
+		name: '我的参拍',
+		path: 'my',
+		component: resolve => require(['./page/JoinMy.vue'], resolve)
+	}],
 	meta: {
 		requiresAuth: true
 	}
 }, {
-	name: '拍卖',
-	path: '/auction',
-	component: resolve => require(['./page/Auction.vue'], resolve),
-	children: [{
-		name: '我的参拍',
-		path: 'my',
-		component: resolve => require(['./page/AuctionMy.vue'], resolve)
-	}, {
-		name: '发拍协议',
-		path: 'protocol',
-		component: resolve => require(['./page/AuctionProtocol.vue'], resolve)
-	}, {
-		name: '开始认证',
-		path: 'sign',
-		component: resolve => require(['./page/AuctionSign.vue'], resolve)
-	}, {
-		name: '发布拍卖',
-		path: 'create',
-		component: resolve => require(['./page/AuctionCreate.vue'], resolve)
-	}, {
-		name: '价格规则',
-		path: 'rule',
-		component: resolve => require(['./page/AuctionRule.vue'], resolve)
-	}, {
-		name: '发布成功',
-		path: 'success',
-		component: resolve => require(['./page/AuctionSuccess.vue'], resolve)
-	}, {
-		name: '我的拍卖',
-		path: 'list',
-		component: resolve => require(['./page/AuctionList.vue'], resolve)
-	}, {
-		name: '拍卖详情',
-		path: 'detail',
-		component: resolve => require(['./page/AuctionDetail.vue'], resolve)
-	}],
+	name: '拍卖详情',
+	path: '/auction/detail',
+	component: resolve => require(['./page/Detail.vue'], resolve),
 	meta: {
 		requiresAuth: true
 	}

@@ -6,7 +6,7 @@
       <div class="title">拍卖发布协议</div>
       <div class="subtitle">发布拍卖即表示同意</div>
       <div class="nav">
-        <router-link :to="{ path:'/auction/create'}">
+        <router-link :to="{ path:'/publish/create'}">
           <img width="55" src="../assets/icon5.png">
         </router-link>
       </div>
@@ -22,10 +22,32 @@
 </template>
 
 <script>
+import config from '../config'
+
 export default {
-  name: 'AuctionProtocol',
+  name: 'PublishProtocol',
+
+  mounted: function(){
+    this.checkFirstCreate();
+  },
   methods: {
-    
+    /**
+     * 检查是否第一次发布
+     * @return {[type]} [description]
+     */
+    checkFirstCreate: function(){
+      var that = this;
+      var url = config.service + '/product/myPublishCount';
+      this.$http.post(url, {}).then(res=>{
+        if(res.body.status){
+          if(res.body.data=="0" && !that.$route.query.src){
+            that.$router.push('/publish/guid');
+          }
+        }
+      }, res=>{
+        that.$toast(res.body.info);
+      });
+    }
   }
 }
 </script>
@@ -86,10 +108,4 @@ export default {
   border: #D7D7D7 solid 1px;
   margin: 10px 0;
 }
-
-.protocol h3{
-  text-align: center;
-  font-size: 18px;
-}
-
 </style>

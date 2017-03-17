@@ -14,54 +14,56 @@ export default {
   computed: {
     ...mapGetters({
         getSid: 'sid',
-        getUser: 'user',
-        getCacheSid: 'getCacheSid',
-        getCacheUserInfo: 'getCacheUserInfo'
+        getCacheSid: 'getCacheSid'
     }),
     ...mapActions({
-        UserLogin: 'UserLogin',
-        UserInfo: 'UpdateUserInfo'
+        UserLogin: 'UserLogin'
     })
   }, 
   mounted: function(){
     console.log("=>getSid:", this.getSid);
     console.log("=>getCacheSid", this.getCacheSid);
+    
+    // 缓存跳转地址
+    var redirect = this.$route.query.redirect;
+    if(redirect){
+      sessionStorage.setItem('redirect', redirect);
+    }else if(sessionStorage.getItem('redirect')){
+      redirect = sessionStorage.getItem('redirect');
+    }else{
+      redirect = "/";
+    }
+    console.log("=>redirect:", redirect);
 
     // 1、当前状态验证
     if(this.getSid){
       console.log("->通过SID登录");
-      this.$router.push("/auction/list");
+      this.$router.push(redirect);
       return;
     }
 
     // 2、当前离线SESSION验证
-    if(this.getCacheSid){
-      console.log("->通过CACHE SID登录");
-      this.$store.dispatch('UserLogin', {sid: this.getCacheSid});
-      this.$router.push("/auction/list");
-      return;
-    }
+    // if(this.getCacheSid){
+    //   console.log("->通过CACHE SID登录");
+    //   this.$store.dispatch('UserLogin', {sid: this.getCacheSid});
+    //   this.$router.push(redirect);
+    //   return;
+    // }
 
     // 3、接收SID
     var sid = this.$route.query.sid;
     if(sid){
       console.log("->通过URL SID登录");
+
       this.$store.dispatch('UserLogin', {sid});
-      this.$router.push("/auction/list");
+      this.$router.push(redirect);
       return;
     }
 
     // 4、跳转到微信授权登录
-    this.$toast('准备请求微信授权登录');
+    this.$toast('获取微信授权');
     setTimeout(()=>location.href = config.service + '/wechat/auth', 1000);
     //location.href = config.service + '/wechat/auth';
-  }, 
-  methods: {
-    
   }
 }
 </script>
-
-<style lang="css">
-
-</style>

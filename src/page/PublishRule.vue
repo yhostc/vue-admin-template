@@ -44,7 +44,20 @@
 
       <div class="line"></div>
 
-      <p class="title">成交设置</p>
+      <!-- <p class="title">成交设置</p>
+      <div class="row-input">
+        <img width="18" src="../assets/icon11.png">
+        <span>拍卖时效</span>
+        <select name="sale_times" v-model="rules.sale_duration">
+          <option value="86400">1天</option>
+          <option value="259200">3天</option>
+          <option value="604800">7次</option>
+          <option value="1296000">15天</option>
+          <option value="2592000">30天</option>
+        </select>
+        <div class="clear"></div>
+      </div> -->
+
       <div class="row-input">
         <img width="18" src="../assets/icon11.png">
         <span>落槌倒数次数</span>
@@ -97,6 +110,7 @@ export default {
         id: '',
         price_start: '0',
         price_step: '100',
+        sale_duration: '259200',
         sale_time: '0',
         sale_times: '1',
         sale_remain: '60',
@@ -120,8 +134,9 @@ export default {
       var url = config.service + '/auction/update';
       this.$http.post(url, this.rules).then(res => {
         if(res.body.status){
-          this.$router.push("/auction/success");
+          this.$router.push("/publish/success");
         }
+        that.$toast(res.body.info);
       }, res => {
         that.$toast(res.body.info);
       });
@@ -133,49 +148,5 @@ export default {
 
 <style lang="css">
 
-.auction-body-rule p{
-  margin: 0 10px;
-}
-
-.auction-body-rule p.title{
-  font-size: 14px;
-  color: #72CD4D;
-}
-
-.auction-body-rule .row-input{
-  margin: 0 10px;
-  font-size: 16px;
-}
-.auction-body-rule .row-input img{
-  vertical-align: middle;
-  float: left;
-  margin: 10px 5px 0 0;
-}
-.auction-body-rule .row-input span{
-  float: left;
-  margin: 8px 0;
-}
-
-.auction-body-rule .row-input input, .auction-body-rule .row-input select{
-  float: right;
-  margin: 8px 0;
-  max-width: 120px;
-  font-size: 16px;
-  text-align: right;
-}
-.auction-body-rule .row-input select option {
-  text-align: right;
-  font-size: 14px;
-}
-
-.auction-body-rule .row-input i{
-  float: right;
-  margin: 8px 0;
-}
-
-.auction-body-rule .line{
-  border: #D7D7D7 solid 1px;
-  margin: 10px 0;
-}
 
 </style>

@@ -14,12 +14,23 @@
 
     <div class="auction-shadow"></div>
     <div class="auction-body">
+      <ul class="auction-userlist" v-if="detail.fans">
+        <li style="padding:0 10px;">
+          <div class="avatar"><img width="35" :src="detail.fans.avatar"></div>
+          <div class="user">
+            {{detail.fans.nickname}}<br/>
+            <template v-if="detail.fans.mobile">{{detail.fans.mobile}}</template>
+            <template v-if="!detail.fans.mobile">未认证用户</template>
+          </div>
+          <div class="time">{{detail.fans.time}}</div>
+        </li>
+      </ul>
       <p>{{detail.title}}</p>
       <p>{{detail.intro}}</p>
       <div class="swipe">
         <mt-swipe :auto="4000">
           <mt-swipe-item v-for="item in detail.album">
-            <img width="640" :src="item" />
+            <img width="640" :src="item+'!s6'" />
           </mt-swipe-item>
         </mt-swipe>
       </div>
@@ -71,7 +82,7 @@
           <mt-button type="primary" size="small" @click="addBiddingPrice">+{{detail.price_step}}</mt-button>
         </span>
         <span>
-          <mt-button type="primary" size="small" @click="saveBidding" v-if="bidding.active">出价</mt-button>
+          <mt-button type="primary" size="small" :style="{'background-color':'#6FCC49'}" @click="saveBidding" v-if="bidding.active">出价</mt-button>
           <mt-button type="default" size="small" @click="saveBidding" v-if="!bidding.active" disabled>出价</mt-button>
         </span>
       </div>
@@ -95,7 +106,7 @@ export default {
       },
       bilingFansList: [],
       bidding: {
-        visible: true,
+        visible: false,
         active: false,
         price: 0
       }
@@ -116,6 +127,7 @@ export default {
         if(res.body.status){
           that.detail = res.body.data.detail;
           this.bilingFansList = res.body.data.bilingFansList;
+          that.bidding.visible = !res.body.data.is_own;
         }
       }, res => {
         that.$toast(res.body.info);
@@ -144,93 +156,3 @@ export default {
   }
 }
 </script>
-
-
-<style lang="css">
-.auction-body .swipe{
-  height: 150px;
-}
-
-.auction-body .tab{
-  margin: 10px 0;
-  box-shadow: 2px 0px 8px #888888;
-}
-.auction-body .tab a{
-  display: inline-block;
-  width: 49%;
-  text-align: center;
-  padding: 5px 0;
-}
-.auction-body .tab a span{
-  display: block;
-}
-.auction-body .tab a:hover{
-  color: #000;
-  border-bottom: #6FCC49 solid 3px;
-}
-
-.auction-body  .tab-container{
-  padding: 0px 10px;
-}
-.auction-userlist{
-  padding: 0;
-  list-style: none;
-}
-.auction-userlist li{
-  padding: 5px 0;
-  border-bottom: #D7D7D7 solid 1px;
-}
-.auction-userlist li div{
-  display: inline-block;
-  vertical-align: top;
-  height: 40px;
-}
-.auction-userlist .avatar{
-
-}
-.auction-userlist .user{
-  color: #000;
-  line-height: 18px;
-}
-.auction-userlist .price, .auction-userlist .time{
-  padding: 0px 0 0 5px;
-  float: right;
-}
-.auction-userlist .price span{
-  color: red;
-  display: block;
-  font-weight: bold;
-}
-.auction-userlist .time{
-  width: 50px;
-  text-align: right;
-  line-height: 30px;
-}
-
-
-.popup-bidding{
-  width: 100%;
-}
-.bidding-title{
-  margin: 15px 10px;
-  font-size: 14px;
-}
-.bidding-content{
-  font-size: 16px;
-  margin: 15px 10px;
-}
-.bidding-content span{
-  margin-right: 5px;
-}
-.bidding-content span.price{
-
-  display: inline-block;
-  margin-right: 10px;
-  border-bottom: #000 solid 2px;
-}
-.bidding-content span.price input{
-  width: 100px;
-  font-size: 20px;
-}
-
-</style>

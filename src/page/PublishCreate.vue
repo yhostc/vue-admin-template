@@ -57,7 +57,9 @@ export default {
       }
     }
   },
+
   methods:{
+    
     /**
      * 触发上传
      * @return {[type]} [description]
@@ -100,7 +102,9 @@ export default {
       var url = config.service + '/auction/save';
       this.$http.post(url, this.myform).then(res => {
         if(res.body.status){
-          this.$router.push("/auction/rule?id="+res.body.data.id);
+          this.$router.push("/publish/rule?id="+res.body.data.id);
+        }else{
+          that.$toast(res.body.info);
         }
       }, res => {
         that.$toast(res.body.info);
@@ -110,77 +114,3 @@ export default {
   }
 }
 </script>
-
-
-<style lang="css">
-
-.auction-navi .icon{
-  width: 45px;
-  float: left;
-}
-.auction-navi .title{
-  margin-left: 55px;
-  font-size: 20px;
-}
-
-.auction-navi .subtitle{
-  margin-left: 55px;
-  font-size: 14px;
-  color:#CFCFCF;
-}
-.auction-navi .nav{
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  z-index: 1;
-}
-
-
-.panel-body{
-  background-color: #fff;
-  min-height: 500px;
-  background: linear-gradient(#DEDEDE, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF, #FFF);
-  padding-top: 20px;
-}
-
-.auction-body-create p{
-  margin: 0 10px;
-}
-.auction-body-create p.title{
-  font-size: 14px;
-  color: #72CD4D;
-}
-.auction-body-create input{
-  margin: 8px 0;
-  font-size: 16px;
-}
-
-.auction-body-create .line{
-  border: #D7D7D7 solid 1px;
-  margin: 10px 0;
-}
-
-
-.auction-body-create .upload{
-  width: 100%;
-  padding:0px;
-  text-align: center;
-}
-
-.auction-body-create .upload>li{
-  width: 80px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  margin-right:8px;
-  margin-bottom:8px;
-  border: #DEDEDE solid 1px;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.auction-body-create input[type=file]{
-  width: 1px;
-  height: 1px;
-}
-</style>
