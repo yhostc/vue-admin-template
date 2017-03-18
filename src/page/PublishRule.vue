@@ -134,7 +134,7 @@ export default {
       var url = config.service + '/auction/update';
       this.$http.post(url, this.rules).then(res => {
         if(res.body.status){
-          this.$router.push("/publish/success");
+          this.$router.push("/publish/success?id="+that.rules.id);
         }
         that.$toast(res.body.info);
       }, res => {

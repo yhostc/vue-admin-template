@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="auction-header text-right">
+		<div class="auction-header text-right" v-if="detail">
       <!-- 正在拍卖 -->
       <div class="auction-state" v-if="detail.status=='1' && detail.bidding">
         <div class="chuizi"><img width="20" src="../assets/icon7.png"></div>
@@ -44,15 +44,15 @@
           </mt-swipe-item>
         </mt-swipe>
       </div>
-      <div class="tab">
-        <a @click="active='tab-container1'">当前参拍<span>{{bilingFansList.length}}</span></a>
+      <div class="tab" v-if="detail && detail.status=='1'">
+        <a @click="active='tab-container1'">当前参拍<span>{{joinFansList.length}}</span></a>
         <a @click="active='tab-container2'">当前出价<span>{{bilingFansList.length}}</span></a>
       </div>
-      <div class="tab-container">
+      <div class="tab-container" v-if="detail && detail.status=='1'">
         <mt-tab-container v-model="active">
           <mt-tab-container-item id="tab-container1">
             <ul class="auction-userlist">
-              <li v-for="item in bilingFansList">
+              <li v-for="item in joinFansList">
                 <div class="avatar"><img width="35" :src="item.fans.avatar"></div>
                 <div class="user">
                   {{item.fans.nickname}}<br/>
@@ -78,6 +78,22 @@
             </ul>
           </mt-tab-container-item>
         </mt-tab-container>
+      </div>
+
+      <!-- 已拍卖结束 -->
+      <div class="detail-complete" v-if="detail && detail.status=='2'">
+        <div class="detail-complete-title">成交信息</div>
+        <div class="detail-complete-left">
+          <div class="avatar"><img width="35" :src="detail.fans.avatar"></div>
+          <div class="user">{{detail.fans.nickname}}<br/>{{detail.fans.mobile}}</div>
+          <div class="clear"></div>
+          <div class="time">成交时间<br/><span>{{detail.create_time}}</span></div>
+          <div class="price">成交价<br/><span>{{detail.bidding.price}}</span></div>
+        </div>
+        <div class="detail-complete-right">
+          <mt-button type="primary" @click="onCallPhone">联系用户</mt-button>
+        </div>
+
       </div>
     </div>
 
@@ -115,6 +131,7 @@ export default {
         price_step: ''
       },
       bilingFansList: [],
+      joinFansList: [],
       bidding: {
         visible: false,
         active: false,
@@ -129,16 +146,20 @@ export default {
     onCheck: function(){
 
     },
-
+    onCallPhone: function(){
+      window.location.href = 'tel://'+this.detail.fans.mobile;
+    },
     getAuctionDetail: function(){
       var that = this;
       var url = config.service + '/auction/detail';
       this.$http.post(url, {id:this.$route.query.id}).then(res => {
         if(res.body.status){
           that.detail = res.body.data.detail;
-          this.bilingFansList = res.body.data.bilingFansList;
-          that.bidding.visible = !res.body.data.is_own && res.body.detail.status==1;
+          that.bilingFansList = res.body.data.bilingFansList;
+          that.joinFansList = res.body.data.joinFansList;
+          that.bidding.visible = !res.body.data.is_own && res.body.data.detail.status=="1";
         }
+        that.$toast(res.body.info);
       }, res => {
         that.$toast(res.body.info);
       });
@@ -156,7 +177,7 @@ export default {
       var url = config.service + '/bidding/price';
       this.$http.post(url, {product_id:this.detail.id, price:this.bidding.price}).then(res => {
         if(res.body.status){
-          this.bidding.price = 0;
+          that.bidding.price = 0;
         }
         that.$toast(res.body.info);
       }, res => {

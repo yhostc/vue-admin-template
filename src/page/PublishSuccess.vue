@@ -41,7 +41,7 @@ export default {
       var that = this;
       var url = config.service + '/wechat/signature';
       var data = {
-        url: encodeURIComponent(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) ? (location.protocol + '//' + location.host) : window.url)
+        url: config.client+"/#"+this.$route.fullPath
       }
 
       this.$http.post(url, data).then(res => {
@@ -53,7 +53,9 @@ export default {
           signature: res.data.signature,
           jsApiList: [
             'onMenuShareTimeline',
-            'onMenuShareAppMessage'
+            'onMenuShareAppMessage',
+            'hideAllNonBaseMenuItem',
+            'showMenuItems'
           ]
         };
         console.log('->config:', cfg);
@@ -62,7 +64,7 @@ export default {
           var info = {
             title: '拍卖助手', // 分享标题
             desc: '快来抢啊！！！',
-            link: 'http://m.yhostc.com/#/auction/detail?id=11', // 分享链接
+            link: 'http://m.yhostc.com/#/auction/detail?id='+that.$route.query.id, // 分享链接
             imgUrl: '', // 分享图标
             success: function () { 
                 // 用户确认分享后执行的回调函数
@@ -75,7 +77,7 @@ export default {
           };
 
           // wx.showOptionMenu();
-          // wx.hideAllNonBaseMenuItem();
+          wx.hideAllNonBaseMenuItem();
           // wx.hideMenuItems({
           //     menuList: [
           //       'menuItem:share:qq',
@@ -92,12 +94,12 @@ export default {
           //       'menuItem:share:brand'
           //     ]
           // });
-          // wx.showMenuItems({
-          //   menuList: [
-          //     'menuItem:share:appMessage',
-          //     'menuItem:share:timeline'
-          //   ]
-          // });
+          wx.showMenuItems({
+            menuList: [
+              'menuItem:share:appMessage',
+              'menuItem:share:timeline'
+            ]
+          });
           wx.onMenuShareTimeline(info);
           wx.onMenuShareAppMessage(info);
         });

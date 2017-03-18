@@ -1,3 +1,4 @@
 export default {
-	"service": "http://yhostc.local/auction-service/www"
+	"client": "http://m.yhostc.com",
+	"service": "http://api.yhostc.com"
 }

@@ -472,3 +472,58 @@ hr {
     border: #D7D7D7 solid 1px;
     margin: 10px 0;
 }
+
+/* 拍卖结束 */
+.detail-complete{
+
+}
+.detail-complete-title{
+    width: 100%;
+    background-color: #6FCC49;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.detail-complete-left, .detail-complete-right{
+    float: left;
+}
+.detail-complete-left{
+    width: 150px;
+    float: left;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.detail-complete-right{
+    width: 120px;
+    float: right;
+    padding-right: 20px;
+    padding-top: 30px;
+    text-align: right;
+}
+
+.detail-complete .avatar{
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+}
+.detail-complete .user{
+    width: 100px;
+    height: 40px;
+    color: #000;
+    line-height: 18px;
+    display: inline-block;
+    vertical-align:top;
+}
+.detail-complete .time{
+    display: inline-block;
+    float: left;
+    width: 80px;
+}
+
+.detail-complete .price{
+    display: inline-block;
+    float: left;
+}
+.detail-complete .time span, .detail-complete .price span{
+    color: #6FCC49;
+}

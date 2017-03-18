@@ -2,7 +2,7 @@
 	<div>
     <div class="auction-header text-right">
       <span>已有{{count}}个拍卖</span>
-      <router-link :to="{ path:'/auction/create'}">
+      <router-link :to="{ path:'/publish/create'}">
         <mt-button type="primary" size="small">
           发布新拍卖
         </mt-button>
